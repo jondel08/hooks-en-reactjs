@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { styled } from "styled-components"
 import search from './search.png'
 
@@ -5,7 +6,6 @@ const ContainerEstilizado = styled.div`
     position: relative;
     display: inline-block;
 `;
-
 
 const CampoTextoEstilizado = styled.input`
     height: 56px;
@@ -29,14 +29,27 @@ const IconoLupa = styled.img`
     right: 10px;
     width: 38px !important;
     height: 38px;
+    cursor: pointer;
 `;
 
-const CampoTexto = () => {
+const CampoTexto = ({ setConsulta }) => {
+    const cajaConsulta = useRef(null)
     
     return (
         <ContainerEstilizado>
-            <CampoTextoEstilizado type="text" placeholder="¿Qué estás buscando?"/>
-            <IconoLupa src={search} alt="ícono de lupa" />
+            <CampoTextoEstilizado
+                ref={cajaConsulta }
+                type="text"
+                placeholder="¿Qué estás buscando?"
+            // onChange={(e) => setConsulta(e.target.value)} 
+            />
+            <IconoLupa src={search}
+                alt="ícono de lupa"
+                onClick={() => {
+                    // console.log(cajaConsulta.current.value);
+                    setConsulta(cajaConsulta.current.value);
+
+                 }} />
         </ContainerEstilizado>
     )
 }
